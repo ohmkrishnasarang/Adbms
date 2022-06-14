@@ -1,0 +1,107 @@
+student@student-OptiPlex-3050:~$ sudo service mongod start
+[sudo] password for student: 
+student@student-OptiPlex-3050:~$ sudo service mongod status
+● mongod.service - MongoDB Database Server
+   Loaded: loaded (/lib/systemd/system/mongod.service; enabled; vendor preset: e
+   Active: active (running) since Tue 2022-06-14 15:35:42 IST; 27min ago
+     Docs: https://docs.mongodb.org/manual
+ Main PID: 1527 (mongod)
+   CGroup: /system.slice/mongod.service
+           └─1527 /usr/bin/mongod --config /etc/mongod.conf
+
+Jun 14 15:35:42 student-OptiPlex-3050 systemd[1]: Started MongoDB Database Serve
+Jun 14 15:44:23 student-OptiPlex-3050 systemd[1]: Started MongoDB Database Serve
+Jun 14 15:47:20 student-OptiPlex-3050 systemd[1]: Started MongoDB Database Serve
+Jun 14 15:47:56 student-OptiPlex-3050 systemd[1]: Started MongoDB Database Serve
+Jun 14 16:03:17 student-OptiPlex-3050 systemd[1]: Started MongoDB Database Serve
+
+student@student-OptiPlex-3050:~$ use emp;
+No command 'use' found, did you mean:
+ Command 'muse' from package 'muse' (universe)
+ Command 'nse' from package 'ns2' (universe)
+ Command 'fuse' from package 'fuse-emulator-sdl' (universe)
+ Command 'fuse' from package 'fuse-emulator-gtk' (universe)
+use: command not found
+student@student-OptiPlex-3050:~$ mongo --quiet
+Welcome to the MongoDB shell.
+For interactive help, type "help".
+For more comprehensive documentation, see
+	https://docs.mongodb.com/
+Questions? Try the MongoDB Developer Community Forums
+	https://community.mongodb.com
+> use emp;
+switched to db emp
+> db.createCollection("Empdetails");
+{ "ok" : 1 }
+> db.Empdetails.insert({name:"Bhuvan",age:30,email:"bhuvan@gps.com",salary:5000})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.insert({name:"Mohan",age:32,email:"mohan@gps.com",salary:4000})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.insert({name:"Raju",age:29,email:"raju@gps.com",salary:6000})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.insert({name:"Manu",age:29,email:"manu@gps.com",salary:5500})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.insert({name:"Ram",age:31,email:"Ram@gps.com",salary:4500})
+WriteResult({ "nInserted" : 1 })
+> db.Empdetails.find();
+{ "_id" : ObjectId("62a867124611c8d851ec1b3f"), "name" : "Bhuvan", "age" : 30, "email" : "bhuvan@gps.com", "salary" : 5000 }
+{ "_id" : ObjectId("62a867314611c8d851ec1b40"), "name" : "Mohan", "age" : 32, "email" : "mohan@gps.com", "salary" : 4000 }
+{ "_id" : ObjectId("62a867584611c8d851ec1b41"), "name" : "Raju", "age" : 29, "email" : "raju@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a8677d4611c8d851ec1b42"), "name" : "Manu", "age" : 29, "email" : "manu@gps.com", "salary" : 5500 }
+{ "_id" : ObjectId("62a867b14611c8d851ec1b43"), "name" : "Ram", "age" : 31, "email" : "Ram@gps.com", "salary" : 4500 }
+> db.Empdetails.findone({name:"Mohan"});
+uncaught exception: TypeError: db.Empdetails.findone is not a function :
+@(shell):1:1
+> db.Empdetails.findOne({name:"Mohan"});
+{
+	"_id" : ObjectId("62a867314611c8d851ec1b40"),
+	"name" : "Mohan",
+	"age" : 32,
+	"email" : "mohan@gps.com",
+	"salary" : 4000
+}
+> db.Empdetails.find({salary:{$gte:5000}});
+{ "_id" : ObjectId("62a867124611c8d851ec1b3f"), "name" : "Bhuvan", "age" : 30, "email" : "bhuvan@gps.com", "salary" : 5000 }
+{ "_id" : ObjectId("62a867584611c8d851ec1b41"), "name" : "Raju", "age" : 29, "email" : "raju@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a8677d4611c8d851ec1b42"), "name" : "Manu", "age" : 29, "email" : "manu@gps.com", "salary" : 5500 }
+> db.Empdetails.find({name:/^R/});
+{ "_id" : ObjectId("62a867584611c8d851ec1b41"), "name" : "Raju", "age" : 29, "email" : "raju@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a867b14611c8d851ec1b43"), "name" : "Ram", "age" : 31, "email" : "Ram@gps.com", "salary" : 4500 }
+> db.Empdetails.find({name:/^R|^M/});
+{ "_id" : ObjectId("62a867314611c8d851ec1b40"), "name" : "Mohan", "age" : 32, "email" : "mohan@gps.com", "salary" : 4000 }
+{ "_id" : ObjectId("62a867584611c8d851ec1b41"), "name" : "Raju", "age" : 29, "email" : "raju@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a8677d4611c8d851ec1b42"), "name" : "Manu", "age" : 29, "email" : "manu@gps.com", "salary" : 5500 }
+{ "_id" : ObjectId("62a867b14611c8d851ec1b43"), "name" : "Ram", "age" : 31, "email" : "Ram@gps.com", "salary" : 4500 }
+> db.Empdetails.find({name:{$nin:["Mohan","Raju","Bhuvan"]}});
+{ "_id" : ObjectId("62a8677d4611c8d851ec1b42"), "name" : "Manu", "age" : 29, "email" : "manu@gps.com", "salary" : 5500 }
+{ "_id" : ObjectId("62a867b14611c8d851ec1b43"), "name" : "Ram", "age" : 31, "email" : "Ram@gps.com", "salary" : 4500 }
+> db.Empdetails.find({name:{$in:["Mohan","Raju","Bhuvan"]}});
+{ "_id" : ObjectId("62a867124611c8d851ec1b3f"), "name" : "Bhuvan", "age" : 30, "email" : "bhuvan@gps.com", "salary" : 5000 }
+{ "_id" : ObjectId("62a867314611c8d851ec1b40"), "name" : "Mohan", "age" : 32, "email" : "mohan@gps.com", "salary" : 4000 }
+{ "_id" : ObjectId("62a867584611c8d851ec1b41"), "name" : "Raju", "age" : 29, "email" : "raju@gps.com", "salary" : 6000 }
+> db.Empdetails.find({age:{$lt:30}},{name:1,salary:1});
+{ "_id" : ObjectId("62a867584611c8d851ec1b41"), "name" : "Raju", "salary" : 6000 }
+{ "_id" : ObjectId("62a8677d4611c8d851ec1b42"), "name" : "Manu", "salary" : 5500 }
+> db.Empdetails.find({salary:{$gt:5000}},{age:{lt:30}});
+{ "_id" : ObjectId("62a867584611c8d851ec1b41") }
+{ "_id" : ObjectId("62a8677d4611c8d851ec1b42") }
+> db.Empdetails.find({$and:[{salary:{$gt:5000}},{age:{lt:30}}]});
+> db.Empdetails.find({$and:[{age:{$lt:30}},{salary:{$gt:5000}}]});
+{ "_id" : ObjectId("62a867584611c8d851ec1b41"), "name" : "Raju", "age" : 29, "email" : "raju@gps.com", "salary" : 6000 }
+{ "_id" : ObjectId("62a8677d4611c8d851ec1b42"), "name" : "Manu", "age" : 29, "email" : "manu@gps.com", "salary" : 5500 }
+> db.Empdetails.update({name:"Mohan"},{$set:{email:"neil@gps.com"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Empdetails.findOneAndUpdate({name:"Mohan"},{$set:{email:"neil@gps.com"}});
+{
+	"_id" : ObjectId("62a867314611c8d851ec1b40"),
+	"name" : "Mohan",
+	"age" : 32,
+	"email" : "neil@gps.com",
+	"salary" : 4000
+}
+> db.Empdetails.deleteMany({age:{$gt:56}});
+{ "acknowledged" : true, "deletedCount" : 0 }
+> db.Empdetails.update({name:"Mohan"},{$set:{age:57}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> ^C
+
