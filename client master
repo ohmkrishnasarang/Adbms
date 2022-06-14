@@ -1,0 +1,179 @@
+sudo mysql -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 34
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use db1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [db1]> create table clientmaster1(clientno varchar(20),name varchar(50),address varchar(40),city varchar(30),pin int,state varchar(40));
+Query OK, 0 rows affected (0.21 sec)
+
+MariaDB [db1]> insert into clientmaster1 values('c0209','sarang','njattuvetty','thrissur',680564,'kerala');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db1]> insert into clientmaster1 values('c0298','syam','kalappattu','thrissur',680687,'kerala');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [db1]> insert into clientmaster1 values('c0300','vaisakh','Erattu','ernakulam',680711,'kerala');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db1]> insert into clientmaster1 values('c0567','siya','karayial','idukki',680987,'kerala');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [db1]> insert into clientmaster1 values('c0900','Adithya','puthussery','palakkad',680765,'kerala');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [db1]> insert into clientmaster1 values('c0200','Jaya','thadathil','malappuram',680345,'kerala');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [db1]> select * from clientmaster1;
++----------+----------+----------------+------------+--------+--------+
+| clientno | name     | address        | city       | pin    | state  |
++----------+----------+----------------+------------+--------+--------+
+| c0209    | sarang   | njattuvetty    | thrissur   | 680564 | kerala |
+| c0298    | syam     | kalappattu     | thrissur   | 680687 | kerala |
+| c0300    | vaisakh  | Erattu         | ernakulam  | 680711 | kerala |
+| c0567    | siya     | karayial       | idukki     | 680987 | kerala |
+| c0900    | Adithya  | puthussery     | palakkad   | 680765 | kerala |
+| c0200    | Jaya     | thadathil      | malappuram | 680345 | kerala |
++----------+----------+----------------+------------+--------+--------+
+6 rows in set (0.00 sec)
+
+MariaDB [db1]> select clientno,name from clientmaster1;
++----------+----------+
+| clientno | name     |
++----------+----------+
+| c0209    | sarang   |
+| c0298    | syam     |
+| c0300    | vaisakh  |
+| c0567    | jabir    |
+| c0900    | Adithya  |
+| c0200    | Jaya     |
++----------+----------+
+6 rows in set (0.01 sec)
+
+MariaDB [db1]> select distinct(name) from clientmaster1;
++----------+
+| name     |
++----------+
+| sarang   |
+| syam     |
+| vaisakh  |
+| siya     |
+| Adithya  |
+| Jaya     |
++----------+
+6 rows in set (0.00 sec)
+
+MariaDB [db1]> select clientno,name,address,city from clientmaster1 order by clientno asc;
++----------+----------+----------------+------------+
+| clientno | name     | address        | city       |
++----------+----------+----------------+------------+
+| c0200    | Jaya     | thadathil      | malappuram |
+| c0209    | sarang   | njattuvetty    | thrissur   |
+| c0298    | syam     | kalappattu     | thrissur   |
+| c0300    | vaisakh  | Erattu         | ernakulam  |
+| c0567    | siya     | karayial       | idukki     |
+| c0900    | Adithya  | puthussery     | palakkad   |
++----------+----------+----------------+------------+
+6 rows in set (0.00 sec)
+
+MariaDB [db1]> select clientno,name,address,city from clientmaster1 order by clientno desc;
++----------+----------+----------------+------------+
+| clientno | name     | address        | city       |
++----------+----------+----------------+------------+
+| c0900    | Adithya  | puthussery     | palakkad   |
+| c0567    | siya     | karayial       | idukki     |
+| c0300    | vaisakh  | Erattu         | ernakulam  |
+| c0298    | syam     | kalappattu     | thrissur   |
+| c0209    | sarang   | njattuvetty    | thrissur   |
+| c0200    | Jaya     | thadathil      | malappuram |
++----------+----------+----------------+------------+
+6 rows in set (0.00 sec)
+
+MariaDB [db1]> select clientno,name from clientmaster1 where clientno='c0200';
++----------+------+
+| clientno | name |
++----------+------+
+| c0200    | Jaya |
++----------+------+
+1 row in set (0.00 sec)
+
+MariaDB [db1]> alter table clientmaster1 add teleno long;
+Query OK, 0 rows affected (0.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [db1]> alter table clientmaster1 add faxno int;
+Query OK, 0 rows affected (0.34 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [db1]> update clientmaster1 set teleno=9567085607,faxno=36784 where name='sarang';
+Query OK, 1 row affected, 1 warning (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [db1]> update clientmaster1 set teleno=9564679334,faxno=12356 where name='syam';
+Query OK, 1 row affected, 1 warning (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [db1]> update clientmaster1 set teleno=9948561594,faxno=36798 where name='vaisakh';
+Query OK, 1 row affected, 1 warning (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [db1]> update clientmaster1 set teleno=9963784494,faxno=98866 where name='Siya';
+Query OK, 1 row affected, 1 warning (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [db1]> update clientmaster1 set teleno=8563148910,faxno=96645 where name='Adithya';
+Query OK, 1 row affected, 1 warning (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [db1]> update clientmaster1 set teleno=7586120399,faxno=02335 where name='Jaya';
+Query OK, 1 row affected, 1 warning (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+MariaDB [db1]> select * from clientmaster1;
++----------+----------+----------------+------------+--------+--------+------------+-------+
+| clientno | name     | address        | city       | pin    | state  | teleno     | faxno |
++----------+----------+----------------+------------+--------+--------+------------+-------+
+| c0209    | sarang   | njattuvetty    | thrissur   | 680564 | kerala | 9567646120 | 36784 |
+| c0298    | syam     | kalappattu     | thrissur   | 680687 | kerala | 9564679334 | 12356 |
+| c0300    | vaisakh  | Erattu         | ernakulam  | 680711 | kerala | 9948561594 | 36798 |
+| c0567    | siya     | karayial       | idukki     | 680987 | kerala | 9963784494 | 98866 |
+| c0900    | Adithya  | puthussery     | palakkad   | 680765 | kerala | 8563148910 | 96645 |
+| c0200    | Jaya     | thadathil      | malappuram | 680345 | kerala | 7586120399 |  2335 |
++----------+----------+----------------+------------+--------+--------+------------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [db1]> alter table clientmaster1 modify faxno varchar(15);
+Query OK, 6 rows affected (0.60 sec)               
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [db1]> describe clientmaster1;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| clientno | varchar(20) | YES  |     | NULL    |       |
+| name     | varchar(50) | YES  |     | NULL    |       |
+| address  | varchar(40) | YES  |     | NULL    |       |
+| city     | varchar(30) | YES  |     | NULL    |       |
+| pin      | int(11)     | YES  |     | NULL    |       |
+| state    | varchar(40) | YES  |     | NULL    |       |
+| teleno   | mediumtext  | YES  |     | NULL    |       |
+| faxno    | varchar(15) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.02 sec)
+
+MariaDB [db1]> drop table clientmaster1;
+Query OK, 0 rows affected (0.10 sec)
+
+
+
