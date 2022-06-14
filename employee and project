@@ -1,0 +1,100 @@
+MariaDB [sarang]> create table employee(emp_id int primary key,emp_name varchar(40),city varchar(40),salary int,age int);
+Query OK, 0 rows affected (0.21 sec)
+
+MariaDB [sarang]> create table project(project_no int, emp_id int references employee,dept varchar(40));
+Query OK, 0 rows affected (0.23 sec)
+
+MariaDB [sarang]> insert into employee values(1,'Angelina','Chicago',20000,30);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [sarang]> insert into employee values(2,'Robert','Austin',30000,26);
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [sarang]> insert into employee values(3,'Christian','Denver',10000,42);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [sarang]> insert into employee values(4,'Kristen','Washington',50000,29);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [sarang]> insert into employee values(5,'Russel','Los angels',20000,36);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [sarang]> insert into employee values(6,'Marry','Canada',60000,48);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [sarang]> insert into project values(101,1,'Testing');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [sarang]> insert into project values(102,2,'Development');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [sarang]> insert into project values(103,3,'Designing');
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [sarang]> insert into project values(104,4,'Development');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [sarang]> select * from employee;
++--------+-----------+------------+--------+------+
+| emp_id | emp_name  | city       | salary | age  |
++--------+-----------+------------+--------+------+
+|      1 | Angelina  | Chicago    |  20000 |   30 |
+|      2 | Robert    | Austin     |  30000 |   26 |
+|      3 | Christian | Denver     |  10000 |   42 |
+|      4 | Kristen   | Washington |  50000 |   29 |
+|      5 | Russel    | Los angels |  20000 |   36 |
+|      6 | Marry     | Canada     |  60000 |   48 |
++--------+-----------+------------+--------+------+
+6 rows in set (0.00 sec)
+
+MariaDB [sarang]> select * from project;
++------------+--------+-------------+
+| project_no | emp_id | dept        |
++------------+--------+-------------+
+|        101 |      1 | Testing     |
+|        102 |      2 | Development |
+|        103 |      3 | Designing   |
+|        104 |      4 | Development |
++------------+--------+-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [sarang]> select emp_name,project.dept from employee inner join project on employee.emp_id=project.emp_id;
++-----------+-------------+
+| emp_name  | dept        |
++-----------+-------------+
+| Angelina  | Testing     |
+| Robert    | Development |
+| Christian | Designing   |
+| Kristen   | Development |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [sarang]> select emp_name,project.dept from employee left join project on employee.emp_id=project.emp_id;
++-----------+-------------+
+| emp_name  | dept        |
++-----------+-------------+
+| Angelina  | Testing     |
+| Robert    | Development |
+| Christian | Designing   |
+| Kristen   | Development |
+| Russel    | NULL        |
+| Marry     | NULL        |
++-----------+-------------+
+6 rows in set (0.00 sec)
+
+MariaDB [sarang]> select emp_name,project.dept from employee right join project on employee.emp_id=project.emp_id;
++-----------+-------------+
+| emp_name  | dept        |
++-----------+-------------+
+| Angelina  | Testing     |
+| Robert    | Development |
+| Christian | Designing   |
+| Kristen   | Development |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
