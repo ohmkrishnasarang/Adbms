@@ -1,0 +1,79 @@
+MariaDB [db1]> create table customer(cid int,customer_name varchar(30),salary int);
+Query OK, 0 rows affected (0.22 sec)
+
+MariaDB [db1]> insert into customer values(1,'sarang',30000);
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [db1]> insert into customer values(2,'syam',25000);
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [db1]> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [db1]> commit;
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [db1]> select * from customer;
++------+---------------+--------+
+| cid  | customer_name | salary |
++------+---------------+--------+
+|    1 | sarang        |  30000 |
+|    2 | syam         |  25000 |
++------+---------------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [db1]> insert into customer values(3,'jabir MJ',30000);
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [db1]> select * from customer;
++------+---------------+--------+
+| cid  | customer_name | salary |
++------+---------------+--------+
+|    1 | sarang        |  30000 |
+|    2 | syam          |  25000 |
+|    3 | jabir MJ      |  30000 |
++------+---------------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [db1]> delete from customer where cid=3;
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [db1]> rollback;
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [db1]> select * from customer;
++------+---------------+--------+
+| cid  | customer_name | salary |
++------+---------------+--------+
+|    1 | sarang        |  30000 |
+|    2 | syam          |  25000 |
++------+---------------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [db1]> insert into customer values(3,'jabir MJ',30000);
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [db1]> commit;
+Query OK, 0 rows affected (0.05 sec)
+
+MariaDB [db1]> savepoint s1;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [db1]> insert into customer values(4,'syam',30000);
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [db1]> rollback to s1;
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [db1]> select * from customer;
++------+---------------+--------+
+| cid  | customer_name | salary |
++------+---------------+--------+
+|    1 | sarang        |  30000 |
+|    2 | syam          |  25000 |
+|    3 | jabir MJ      |  30000 |
++------+---------------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [db1]> 
+
